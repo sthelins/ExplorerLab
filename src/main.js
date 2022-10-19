@@ -32,7 +32,19 @@ const securityCodeMasked = IMask(securityCode, securityCodePattern)
 
 const expirationDate = document.querySelector("#expiration-date")
 const expirationDatePattern = {
-  mask: "00{/}00"
+  mask: "MM{/}YY",
+  blocks: {
+    MM: {
+      mask: IMask.MaskedRange,
+      from: 1, //valor minimo
+      to: 12 //valor maximo
+    },
+    YY: {
+      mask: IMask.MaskedRange,
+      from: String(new Date().getFullYear()).slice(2), //pega o ano atual e o slice os dois ultimos nº
+      to: String(new Date().getFullYear() + 15).slice(2)
+    }
+  }
 }
 
 const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
